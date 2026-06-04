@@ -1,3 +1,33 @@
+<?php
+require_once 'config.php';
+
+$error_message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_POST['password'])) {
+    
+    $email = $conn->real_escape_string(trim($_POST['email']));
+    $password = $_POST['password'];
+
+    $result = $conn->query("SELECT * FROM customer_tbl WHERE email = '$email'");
+
+    if ($result && $result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['customer_id'] ?? $user['id']; 
+            $_SESSION['user_fname'] = $user['Fname'];
+            
+            header("Location: index.php");
+            exit();
+        } else {
+            $error_message = "Invalid password.";
+        }
+    } else {
+        $error_message = "No account found with that email.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,94 +40,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --brand-pink: #f8b6d2;
-            --brand-pink-hover: #f49ac2;
-            --brand-dark: #2c2523;
-            --brand-light: #fdfbf7;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--brand-light);
-            color: #4a4a4a;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        h1, h2, h3, .brand-title {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .auth-card {
-            border: none;
-            border-radius: 24px;
-            overflow: hidden;
-            background-color: #ffffff;
-            box-shadow: 0 15px 35px rgba(44, 37, 35, 0.08);
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .auth-side-panel {
-            background: linear-gradient(to bottom, rgba(44, 37, 35, 0.85), rgba(44, 37, 35, 0.95)), url('img/bg.jpg') no-repeat center center/cover;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 60px 40px;
-            position: relative;
-        }
-
-        .form-floating > .form-control:focus ~ label,
-        .form-floating > .form-control:not(:placeholder-shown) ~ label {
-            color: #d06a93;
-        }
-
-        .form-control:focus {
-            border-color: var(--brand-pink);
-            box-shadow: 0 0 0 0.25rem rgba(248, 182, 210, 0.25);
-        }
-
-        .form-check-input:checked {
-            background-color: var(--brand-pink-hover);
-            border-color: var(--brand-pink-hover);
-        }
-
-        .btn-submit {
-            background-color: var(--brand-dark);
-            color: #ffffff;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            border-radius: 50px;
-            padding: 12px 24px;
-            transition: all 0.25s ease-in-out;
-            border: none;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--brand-pink);
-            color: var(--brand-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(248, 182, 210, 0.4);
-        }
-
-        .btn-back {
-            color: var(--brand-dark);
-            font-size: 0.9rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        .btn-back:hover {
-            color: var(--brand-pink-hover);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400..900;1,400..900&family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
@@ -108,7 +52,7 @@
                 
                 <div class="col-lg-5 d-none d-lg-flex auth-side-panel flex-column justify-content-between text-center text-lg-start">
                     <div>
-                        <a href="index.html" class="text-white text-decoration-none d-inline-flex align-items-center mb-4">
+                        <a href="index.php" class="text-white text-decoration-none d-inline-flex align-items-center mb-4">
                             <i class="bi bi-cat-fill me-2 fs-4" style="color: var(--brand-pink);"></i>
                             <span class="fw-bold tracking-wider fs-5">CAT CAFE</span>
                         </a>
@@ -116,7 +60,7 @@
                     
                     <div class="my-auto py-4">
                         <div class="h2 display-6 fw-bold text-white mb-3">Welcome Back, Friend!</div>
-                        <div class="p text-white-50 font-weight-light small lh-lg">
+                        <div class="text-white-50 font-weight-light small lh-lg">
                             Log in to view your current lounge bookings, manage your purr-fect loyalty reward points, and see if any new rescue cats have arrived since your last visit.
                         </div>
                     </div>
@@ -136,19 +80,25 @@
                     </div>
 
                     <div class="mb-4 text-center text-lg-start">
-                        <div class="h1 fw-bold text-dark mb-1">Sign In</div>
+                        <div class="h2 fw-bold text-dark mb-1">Sign In</div>
                         <div class="p text-muted small">Welcome back! Please sign in to your dashboard.</div>
                     </div>
 
-                    <form action="#" method="POST" autocomplete="off">
+                    <?php if (!empty($error_message)): ?>
+                        <div class="alert alert-danger text-center py-2 rounded-3 small mb-3">
+                            <i class="bi bi-exclamation-circle me-1"></i> <?php echo $error_message; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="login.php" method="POST" autocomplete="off">
                         
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="emailAddress" placeholder="name@example.com" required>
+                            <input type="email" class="form-control rounded-3" id="emailAddress" name="email" placeholder="name@example.com" required>
                             <label for="emailAddress">Email Address</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="userPassword" placeholder="Password" required>
+                            <input type="password" class="form-control rounded-3" id="userPassword" name="password" placeholder="Password" required>
                             <label for="userPassword">Password</label>
                         </div>
 
@@ -169,9 +119,9 @@
                         </button>
 
                         <div class="text-center">
-                            <div class="p small text-muted mb-3">New to our community? <a href="signup.html" class="fw-semibold text-decoration-none" style="color: #d06a93;">Create an Account</a></div>
+                            <div class="p small text-muted mb-3">New to our community? <a href="signup.php" class="fw-semibold text-decoration-none" style="color: #d06a93;">Create an Account</a></div>
                             <hr class="w-25 mx-auto opacity-25 my-3">
-                            <a href="index.html" class="btn-back d-inline-flex align-items-center gap-2">
+                            <a href="index.php" class="btn-back d-inline-flex align-items-center gap-2">
                                 <i class="bi bi-arrow-left"></i> Back to Homepage
                             </a>
                         </div>
