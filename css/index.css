@@ -1,4 +1,4 @@
-:root {
+  :root {
             --brand-pink: #f8b6d2;
             --brand-pink-hover: #f49ac2;
             --brand-dark: #2c2523;
@@ -16,12 +16,10 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Smooth Transition utility */
         .smooth-transition {
             transition: all 0.3s ease-in-out;
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             height: 100vh;
@@ -56,7 +54,6 @@
             opacity: 0.95;
         }
 
-        /* Custom Button Extensions */
         .btn-pink {
             background-color: var(--brand-pink);
             border: 2px solid var(--brand-pink);
@@ -95,7 +92,6 @@
             box-shadow: 0 4px 10px rgba(44, 37, 35, 0.15);
         }
 
-        /* Professional Text-Based Menu Cards */
         .menu-card {
             border: none;
             border-radius: 20px;
@@ -151,7 +147,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Section Title Styling */
         .section-badge {
             background-color: rgba(248, 182, 210, 0.3);
             color: #d06a93;
@@ -171,7 +166,6 @@
             margin-top: 10px;
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 991px) {
             .hero-title {
                 font-size: 3.5rem;

@@ -1,20 +1,7 @@
 <?php
-session_start();
+include 'config.php';
 
-  
-
-$host     = "localhost";
-$username = "root";
-$password = "abc123456";
-$dbname   = "cafe_db"; 
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM cat_tbl"; 
+$sql = "SELECT * FROM cat_tbl";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -111,11 +98,11 @@ $result = $conn->query($sql);
                                             <div class="row mt-4">
                                                 <div class="col-6">
                                                     <div class="h6 fw-bold small text-uppercase text-muted">Breed</div>
-                                                    <div><?php echo $breed; ?></p>
+                                                    <div><?php echo $breed; ?></div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="h6 fw-bold small text-uppercase text-muted">Status</div>
-                                                    <div>Resident</p>
+                                                    <div>Resident</div>
                                                 </div>
                                             </div>
 
