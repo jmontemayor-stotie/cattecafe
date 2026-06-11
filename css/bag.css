@@ -1,0 +1,122 @@
+ :root {
+     --brand-pink: #f8b6d2;
+     --brand-dark: #221c1a;
+     --brand-muted: #b8b4b3;
+     --brand-light: #fdfbf9;
+     --card-shadow: 0 8px 24px rgba(34, 28, 26, 0.04);
+ }
+
+ body {
+     font-family: 'Poppins', sans-serif;
+     background-color: var(--brand-light);
+     color: var(--brand-muted);
+     letter-spacing: 0.2px;
+ }
+
+ h1,
+ h2,
+ h3,
+ h5,
+ .summary-title {
+     font-family: 'Playfair Display', serif;
+     letter-spacing: 0.5px;
+     color: var(--brand-dark);
+ }
+
+ .navbar {
+     background: rgba(34, 28, 26, 0.95);
+     backdrop-filter: blur(12px);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+ }
+
+ .page-banner {
+     padding-top: 160px;
+     padding-bottom: 60px;
+     background: linear-gradient(to bottom, rgba(34, 28, 26, 0.85), rgba(34, 28, 26, 0.6)), url('../img/bg.jpg') no-repeat center center/cover;
+     text-align: center;
+ }
+
+ .bag-container-card {
+     border: 1px solid rgba(34, 28, 26, 0.05);
+     border-radius: 16px;
+     background: #ffffff;
+     box-shadow: var(--card-shadow);
+ }
+
+ .bag-item-row {
+     border-bottom: 1px solid rgba(34, 28, 26, 0.05);
+     padding: 20px 0;
+ }
+
+ .bag-item-row:last-child {
+     border-bottom: none;
+ }
+
+ .qty-control {
+     display: inline-flex;
+     align-items: center;
+     border: 1px solid rgba(34, 28, 26, 0.1);
+     border-radius: 20px;
+     padding: 2px 8px;
+     background-color: #faf8f7;
+ }
+
+ .qty-btn {
+     background: none;
+     border: none;
+     color: var(--brand-dark);
+     padding: 2px 8px;
+     font-weight: 600;
+     cursor: pointer;
+ }
+
+ .qty-val {
+     font-size: 0.9rem;
+     font-weight: 500;
+     padding: 0 10px;
+     min-width: 25px;
+     text-align: center;
+ }
+
+ .btn-checkout {
+     background-color: var(--brand-dark);
+     color: #ffffff;
+     border: 1px solid var(--brand-dark);
+     font-weight: 600;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     border-radius: 30px;
+     padding: 14px 24px;
+     transition: all 0.3s ease;
+ }
+
+ .btn-checkout:hover {
+     background-color: #3d3330;
+     color: #ffffff;
+ }
+
+ .btn-clear-bag {
+     color: #d46a94;
+     font-size: 0.85rem;
+     text-decoration: none;
+     font-weight: 500;
+ }
+
+ .btn-clear-bag:hover {
+     text-decoration: underline;
+ }
+
+ /* Toast Notification Style */
+ #toast {
+     position: fixed;
+     bottom: 30px;
+     right: 30px;
+     background: #221c1a;
+     color: #fff;
+     padding: 12px 25px;
+     border-radius: 50px;
+     display: none;
+     z-index: 9999;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+     font-size: 0.9rem;
+ }
