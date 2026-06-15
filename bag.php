@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// database connection
 $is_logged_in = isset($_SESSION['user_id']);
 
 if (isset($_POST['action'])) {
