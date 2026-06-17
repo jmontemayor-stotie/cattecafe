@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once 'config.php'; 
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -7,7 +7,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $is_logged_in = isset($_SESSION['user_id']); 
 
-$query1 = $conn->query("SELECT * FROM menuitem_tbl ORDER BY category, item_id ASC");
+$query1 = $conn->query("
+    SELECT m.*, IFNULL(s.quantity_available, 0) AS stock 
+    FROM menuitem_tbl m
+    LEFT JOIN stock_tbl s ON m.item_id = s.menuitem_id 
+    ORDER BY m.category, m.item_id ASC
+");
 $all_items = $query1->fetch_all(MYSQLI_ASSOC);
 
 $query2 = $conn->query("SELECT cat_id, cat_name, img, description FROM cat_tbl");
@@ -32,6 +37,7 @@ foreach ($all_items as $item) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,12 +49,11 @@ foreach ($all_items as $item) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/menu.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
+
         .cat-profile-card {
             border: 2px solid #f0f0f0;
             border-radius: 12px;
@@ -138,7 +143,7 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <div class="h5 card-title fw-bold text-dark mb-0">
                                     <?= htmlspecialchars($item['item_name']); ?>
-                                </div>
+                                 </div>
                                 <span class="item-price ms-2 fw-semibold text-nowrap">₱<?= number_format($item['price'], 2); ?></span>
                             </div>
                             
@@ -146,8 +151,8 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                             
                             <div class="mb-0 small fw-bold <?= $isOutOfStock ? 'text-danger' : 'text-success' ?>">
                                 <i class="bi bi-box-seam me-1"></i> 
-                                <?= $isOutOfStock ? 'Out of Stock' : 'Stock: ' . $item['stock']; ?>
-                            </div>
+                                <?= $isOutOfStock ? 'Out of Stock' : 'Stock: ' . intval($item['stock']); ?>
+                        </div>
                         </div>
 
                         <div class="card-action-box p-3 border-top border-light bg-transparent">
@@ -231,7 +236,7 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                     </div>
 
                     <div id="step3" style="display:none;">
-                        <p class="text-muted small mb-3">Choose your host kitty:</p>
+                        <div class="text-muted small mb-3">Choose your host kitty:</div>
                         <div class="cat-list-container pe-1" style="max-height: 280px; overflow-y: auto;">
                             <?php if(!empty($cats)): ?>
                                 <?php foreach($cats as $cat): ?>
@@ -241,13 +246,13 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                                             <div class="h6 fw-bold mb-1 text-dark"><?= htmlspecialchars($cat['cat_name']) ?></div>
                                             <div class="text-muted mb-0 small text-truncate" style="max-width: 220px;">
                                                 <?= !empty($cat['description']) ? htmlspecialchars($cat['description']) : 'Friendly lounge companion.' ?>
-                                            </div>
+                                             </div>
                                         </div>
                                         <i class="bi bi-check-circle-fill text-dark fs-5 check-icon opacity-0"></i>
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <p class="text-muted text-center py-3 small">No cat profiles loaded in database.</p>
+                                <div class="text-muted text-center py-3 small">No cat profiles loaded in database.</div>
                             <?php endif; ?>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-4">
@@ -257,7 +262,7 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                     </div>
 
                     <div id="step4" style="display:none;">
-                        <p class="text-muted small mb-3 text-center">Set your targeted reservation schedule details below:</p>
+                        <div class="text-muted small mb-3 text-center">Set your targeted reservation schedule details below:</div>
                         <div class="mb-3">
                             <label class="form-label small fw-semibold text-secondary">Reservation Date</label>
                             <input type="date" class="form-control form-control-lg fs-6" id="reserveDate" required min="<?= date('Y-m-d') ?>">
@@ -278,7 +283,7 @@ function render_menu_grid($items, $is_brownie_tab = false) {
     </div>
 
     <footer class="py-4 text-center bg-dark text-white-50 border-top border-secondary border-opacity-10">
-        <p class="small mb-0">&copy; 2026 Cat Cafe Lounge. Curated and crafted responsibly.</p>
+        <div class="small mb-0">&copy; 2026 Cat Cafe Lounge. Curated and crafted responsibly.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -334,33 +339,30 @@ function render_menu_grid($items, $is_brownie_tab = false) {
             });
         });
 
-       
-document.querySelectorAll('.btn-order-now').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-        const ds = e.currentTarget.dataset;
-        const success = saveToBag(ds.id, ds.name, ds.price);
-        
-        if (success) {
-            const localData = localStorage.getItem('cafe_bag');
-            const fd = new FormData();
-            fd.append('action', 'sync_local_storage');
-            fd.append('items', localData);
-
-            // Send to bag.php (which handles the session update)
-            try {
-                const res = await fetch('bag.php', { method: 'POST', body: fd });
-                const data = await res.json();
+        document.querySelectorAll('.btn-order-now').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const ds = e.currentTarget.dataset;
+                const success = saveToBag(ds.id, ds.name, ds.price);
                 
-                if (data.status === 'success') {
-                    // Now that the session is synced, go to checkout
-                    window.location.href = 'checkout.php';
+                if (success) {
+                    const localData = localStorage.getItem('cafe_bag');
+                    const fd = new FormData();
+                    fd.append('action', 'sync_local_storage');
+                    fd.append('items', localData);
+
+                    try {
+                        const res = await fetch('bag.php', { method: 'POST', body: fd });
+                        const data = await res.json();
+                        
+                        if (data.status === 'success') {
+                            window.location.href = 'checkout.php';
+                        }
+                    } catch (err) {
+                        console.error("Sync failed", err);
+                    }
                 }
-            } catch (err) {
-                console.error("Sync failed", err);
-            }
-        }
-    });
-});
+            });
+        });
 
         const hash = window.location.hash;
         if (hash) {

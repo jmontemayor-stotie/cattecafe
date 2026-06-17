@@ -121,11 +121,7 @@ h1, h2, h3, h4, .navbar-brand {
                                     <i class="bi bi-person fs-5" style="color: #d06a93;"></i> My Profile
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item small py-2.5 rounded-3 d-flex align-items-center gap-2 text-secondary text-decoration-none" href="reservations.php">
-                                    <i class="bi bi-calendar-check fs-5" style="color: #d06a93;"></i> My Bookings
-                                </a>
-                            </li>
+
                             <li><hr class="dropdown-divider opacity-25 my-2"></li>
                             <li>
                                 <a class="dropdown-item small py-2.5 rounded-3 d-flex align-items-center gap-2 text-danger fw-medium text-decoration-none" href="logout.php">

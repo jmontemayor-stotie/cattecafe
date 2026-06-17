@@ -12,12 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
 
     if ($result && $result->num_rows > 0) {
         $user = $result->fetch_assoc();
-  
-        if (password_verify($password, $user['password'])) {
-
+        
+        if (password_verify($password, $user['PASSWORD'])) {
             $_SESSION['user_id'] = $user['customer_id'] ?? $user['id']; 
             $_SESSION['user_fname'] = $user['Fname'];
-
+            
             header("Location: index.php");
             exit();
         } else {
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
                     </div>
                     
                     <div class="my-auto py-4">
-                        <div class="display-6 fw-bold text-white mb-3">Welcome Back, Friend!</div>
+                        <div class="h2 display-6 fw-bold text-white mb-3">Welcome Back, Friend!</div>
                         <div class="text-white-50 font-weight-light small lh-lg">
                             Log in to view your current lounge bookings, manage your purr-fect loyalty reward points, and see if any new rescue cats have arrived since your last visit.
                         </div>
@@ -121,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
 
                         <div class="text-center">
                             <div class="small text-muted mb-3">New to our community? <a href="signup.php" class="fw-semibold text-decoration-none" style="color: #d06a93;">Create an Account</a></div>
-                            <div class="w-25 mx-auto opacity-25 my-3">
+                            <hr class="w-25 mx-auto opacity-25 my-3">
                             <a href="index.php" class="btn-back d-inline-flex align-items-center gap-2">
                                 <i class="bi bi-arrow-left"></i> Back to Homepage
                             </a>

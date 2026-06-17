@@ -10,7 +10,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catte Cafe - Sweet Treats & Purrfect Moments</title>
+    <title>Cat Cafe - Sweet Treats & Purrfect Moments</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -27,11 +27,11 @@ $result = $conn->query($sql);
         <div class="hero-content px-3">
             <div class="h1 hero-title">
                 Sweet Treats &<br>Purrfect Moments
-            <div>
+            </div>
             <div class="hero-text">
                 Enjoy delicious artisanal cakes, premium brewed coffees, and unforgettable <br class="d-none d-md-inline">
                 moments wrapped in the cozy company of our lovable resident cats.
-</div>
+            </div>
             <a href="menu.php" class="btn btn-pink px-5 py-3 shadow smooth-transition text-decoration-none">
                 Explore Menu <i class="bi bi-arrow-right ms-2"></i>
             </a>
@@ -92,7 +92,7 @@ $result = $conn->query($sql);
                             <div class="h5 card-title fw-bold mb-2">Cakes</div>
                             <div class="card-text text-muted small">
                                 Decadent and rich homemade layered signature cakes, crafted perfectly for sweet cravings.
-</div>
+                        </div>
                         </div>
                     </div>
                     <div class="p-4 pt-0">
@@ -113,7 +113,7 @@ $result = $conn->query($sql);
                             <div class="h5 card-title fw-bold mb-2">Cookies</div>
                             <div class="card-text text-muted small">
                                 Freshly baked, crisp on the edges and soft-centered premium cookies straight from the oven.
-</div>
+                            </div>
                         </div>
                     </div>
                     <div class="p-4 pt-0">
@@ -134,7 +134,7 @@ $result = $conn->query($sql);
                             <div class="h5 card-title fw-bold mb-2">Brownies</div>
                             <div class="card-text text-muted small">
                                 Fudgy, dense, and premium rich dark chocolate square brownies dusted with love.
-</div>
+                            </div>
                         </div>
                     </div>
                     <div class="p-4 pt-0">
@@ -155,7 +155,7 @@ $result = $conn->query($sql);
                             <div class="h5 card-title fw-bold mb-2">Drinks</div>
                             <div class="card-text text-muted small">
                                 Expertly brewed hot espresso blends and refreshing, artisanal iced companion creations.
-</div>
+                            </div>
                         </div>
                     </div>
                     <div class="p-4 pt-0">
@@ -173,7 +173,7 @@ $result = $conn->query($sql);
                     <div class="h5 text-white fw-bold mb-3"><i class="bi bi-cat-fill me-2 text-pink" style="color: var(--brand-pink);"></i> CAT CAFE</div>
                     <div class="small text-muted mb-0" style="max-width: 380px;">
                         A safe sanctuary where coffee aroma marries sweet purrs. Come visit us for unique baked pastries and cozy feline therapy.
-</div>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="h6 text-white fw-semibold mb-3 small text-uppercase" style="letter-spacing: 1px;">Quick Links</div>
@@ -186,7 +186,7 @@ $result = $conn->query($sql);
                 <div class="col-lg-4 col-md-6">
                     <div class="h6 text-white fw-semibold mb-3 small text-uppercase" style="letter-spacing: 1px;">Hours & Location</div>
                     <div class="small mb-1 text-light opacity-75"><i class="bi bi-clock me-2"></i> Mon - Sun: 9:00 AM - 9:00 PM</div>
-                    <div class="small text-light opacity-75"><i class="bi bi-geo-alt me-2"></i> Purok 3A San Rafel, Sto Tomas Batangas</div>
+                    <div class="small text-light opacity-75"><i class="bi bi-geo-alt me-2"></i> Purok 3A San Rafael, Sto Tomas City</div>
                 </div>
             </div>
             <hr class="my-4 opacity-10">
