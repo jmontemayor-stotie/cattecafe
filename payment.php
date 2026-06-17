@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <div class="container py-5">
         <div class="text-center mb-5">
             <div style="font-family: 'Playfair Display', serif;" class="h1 fw-bold text-dark">Review Your Order</div>
-            <div class="text-muted">Please double-check your booking parameters and cart treats before confirming payment.</div>
+            <p class="text-muted">Please double-check your booking parameters and cart treats before confirming payment.</p>
         </div>
 
         <?php if ($error_message): ?>
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <div class="col-lg-6">
                 <div class="card summary-card p-4 h-100">
                     <div style="font-family: 'Playfair Display', serif;" class="h4 fw-bold text-dark mb-4"><i class="bi bi-calendar-check text-muted me-2"></i>Reservation Metadata</div>
-
+                    
                     <div class="d-flex flex-column gap-3">
                         <div class="review-badge">
                             <span class="text-muted d-block small text-uppercase tracking-wider fw-semibold">Service Option</span>
@@ -226,7 +226,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if redirect parameters demand clearing local storage completely
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.get('clear_cart') === '1') {
                 localStorage.removeItem('cafe_bag');
@@ -293,6 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         });
 
         document.getElementById('finalOrderForm').addEventListener('submit', () => {
+            // Clear local storage cache flags right as submission hits the backend transaction engine
             localStorage.removeItem('cafe_bag');
             localStorage.removeItem('booking_date');
             localStorage.removeItem('booking_time');

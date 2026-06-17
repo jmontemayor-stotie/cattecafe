@@ -41,7 +41,7 @@ if (!$order) {
             <div class="mb-3">
                 <i class="bi bi-check-circle-fill success-icon"></i>
             </div>
-            <div class="fw-bold text-dark mb-2">Meow-tastic! Order Placed!</div>
+            <div class="h2 fw-bold text-dark mb-2">Meow-tastic! Order Placed!</div>
             <div class="text-muted">Your order has been recorded and sent straight to our cafe kitchen.</div>
             
             <div class="bg-light rounded-3 p-4 my-4 text-start">
@@ -60,7 +60,7 @@ if (!$order) {
                 <hr class="text-muted my-3" style="border-style: dashed;">
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="text-muted fw-bold">Total Amount Due:</span>
-                    <div class="fw-bold text-dark mb-0">₱<?= number_format($order['total_amount'], 2); ?></div>
+                    <div class="h4 fw-bold text-dark mb-0">₱<?= number_format($order['total_amount'], 2); ?></div>
                 </div>
             </div>
 
