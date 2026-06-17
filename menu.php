@@ -101,7 +101,7 @@ foreach ($all_items as $item) {
 
     <section class="page-banner">
         <div class="container text-white">
-            <div class="h1 display-5 fw-bold mb-2">Our Culinary Menu</div>
+            <div class= "h1 display-5 fw-bold mb-2">Our Culinary Menu</div>
             <div class="lead text-white-50 small font-monospace text-uppercase tracking-wider">Artisan pastries & premium house blends prepared daily</div>
         </div>
     </section>
@@ -187,10 +187,10 @@ function render_menu_grid($items, $is_brownie_tab = false) {
     <?php endif; 
 } ?>
 
-            <div class="tab-pane fade show active" id="pane-brownies" role="tabpanel"><div class="row g-4"><?php render_menu_grid($brownies, true); ?></div></div>
-            <div class="tab-pane fade" id="pane-cookies" role="tabpanel"><div class="row g-4"><?php render_menu_grid($cookies); ?></div></div>
-            <div class="tab-pane fade" id="pane-drinks" role="tabpanel"><div class="row g-4"><?php render_menu_grid($drinks); ?></div></div>
-            <div class="tab-pane fade" id="pane-cakes" role="tabpanel"><div class="row g-4"><?php render_menu_grid($cakes); ?></div></div>
+            <div class="tab-pane fade show active" id="pane-brownies" role="tabpanel"> <div class="row g-4"><?php render_menu_grid($brownies, true); ?></div></div>
+            <div class="tab-pane fade" id="pane-cookies" role="tabpanel"><div class="row g-4"> <?php render_menu_grid($cookies); ?></div></div>
+            <div class="tab-pane fade" id="pane-drinks" role="tabpanel"><div class="row g-4"> <?php render_menu_grid($drinks); ?></div></div>
+            <div class="tab-pane fade" id="pane-cakes" role="tabpanel"><div class="row g-4"> <?php render_menu_grid($cakes); ?></div></div>
         </div>
     </div>
 
@@ -254,11 +254,13 @@ function render_menu_grid($items, $is_brownie_tab = false) {
                             <?php else: ?>
                                 <div class="text-muted text-center py-3 small">No cat profiles loaded in database.</div>
                             <?php endif; ?>
+
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-4">
                             <button class="btn btn-sm btn-outline-secondary px-3" onclick="showStep('step2')">Back</button>
                             <button class="btn btn-sm btn-dark px-4" id="btnNextToSchedule" disabled onclick="goToScheduler(true)">Continue</button>
                         </div>
+
                     </div>
 
                     <div id="step4" style="display:none;">
@@ -296,12 +298,12 @@ function render_menu_grid($items, $is_brownie_tab = false) {
     const saveToBag = (id, name, price) => {
         if (!IS_LOGGED_IN) {
             Swal.fire({
-                icon: 'info',
-                title: 'Login Required',
-                text: 'Please log in or sign up first to add treats to your bag!',
-                confirmButtonColor: '#000'
+                icon:'info',
+                title:'Login Required',
+                text:'Please log in or sign up first to add treats to your bag!',
+                confirmButtonColor:'#000'
             }).then(() => {
-                window.location.href = "login.php";
+                window.location.href ="login.php";
             });
             return false;
         }
